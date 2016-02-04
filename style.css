@@ -17,6 +17,14 @@ body {
 }
 
 
+#button {
+    position: absolute;
+    left: 2vw;
+    top: 2vh;
+    font-size: 3em;
+}
+
+
 #tile_container, .entry_container {
     width: 90vw;
     height: 80vh;
@@ -32,22 +40,38 @@ body {
 
 
 .tile_group {
-    -webkit-flex-basis: 40em;
     height: 80vh;
     display: -webkit-flex;
     -webkit-flex-direction: column;
     -webkit-flex-wrap: wrap;
     -webkit-justify-content: flex-start;
-    -webkit-align-items: flex-start;    
+    -webkit-align-items: flex-start;
+    -webkit-align-content: flex-start;
 }
 
 
 .tile {
     width: 12em;
     height: 12em;
+    margin-bottom: 0.5em;
+    margin-right: 0.5em;
     -webkit-flex-shrink: 0;
+    background: linear-gradient(to bottom, #6348b4 0%,#7452c6 100%);
+}
 
-    background-color: purple;
+
+.category_tile {
+    display: -webkit-flex;
+    position: relative;
+    -webkit-justify-content: center;
+    -webkit-align-items: center;
+}
+
+
+.category_label {
+    position: absolute;
+    right: 0.2em;
+    bottom: 0.2em;
 }
 
 
@@ -55,7 +79,8 @@ body {
     -webkit-flex-direction: column;
     -webkit-flex-wrap: wrap;
     -webkit-justify-content: flex-start;
-    -webkit-align-items: center;
+    -webkit-align-items: flex-start;
+    -webkit-align-content: flex-start;
 }
 
 
@@ -69,12 +94,12 @@ body {
 }
 
 
-.entry_tile:hover {
+#button:hover, .entry_tile:hover {
     background-color: #2b0680;
 }
 
 
-.entry_icon {
+.category_icon, .entry_icon {
     width: 4em;
     height: 4em;
     -webkit-flex-shrink: 0;
@@ -86,8 +111,12 @@ body {
 }
 
 
+#button, .entry_label {
+    cursor: default;
+}
+
+
 .entry_label {
     font-size: 1.2em;
-    cursor: default;
     -webkit-flex-basis: 10em;
 }
