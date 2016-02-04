@@ -1,0 +1,93 @@
+* {
+    -webkit-user-select: none;
+}
+
+
+body {
+    margin: 0px;
+    width: 100vw;
+    height: 100vh;
+    color: white;
+    background-color: #180053;
+    font-family: sans-serif;
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+    -webkit-justify-content: center;
+    -webkit-align-items: center;
+}
+
+
+#tile_container, .entry_container {
+    width: 90vw;
+    height: 80vh;
+    display: -webkit-flex;
+}
+
+
+#tile_container {
+    -webkit-flex-direction: row;
+    -webkit-justify-content: space-around;
+    -webkit-align-items: center;
+}
+
+
+.tile_group {
+    -webkit-flex-basis: 40em;
+    height: 80vh;
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    -webkit-flex-wrap: wrap;
+    -webkit-justify-content: flex-start;
+    -webkit-align-items: flex-start;    
+}
+
+
+.tile {
+    width: 12em;
+    height: 12em;
+    -webkit-flex-shrink: 0;
+
+    background-color: purple;
+}
+
+
+.entry_container {
+    -webkit-flex-direction: column;
+    -webkit-flex-wrap: wrap;
+    -webkit-justify-content: flex-start;
+    -webkit-align-items: center;
+}
+
+
+.entry_tile {
+    width: 16em;
+    height: 5em;
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+    -webkit-justify-content: space-around;
+    -webkit-align-items: center;
+}
+
+
+.entry_tile:hover {
+    background-color: #2b0680;
+}
+
+
+.entry_icon {
+    width: 4em;
+    height: 4em;
+    -webkit-flex-shrink: 0;
+}
+
+
+.entry_separator {
+    -webkit-flex-basis: 0.5em;
+}
+
+
+.entry_label {
+    font-size: 1.2em;
+    cursor: default;
+    -webkit-flex-basis: 10em;
+}

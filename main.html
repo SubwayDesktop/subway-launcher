@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="win_title" content="Subway Launcher" >
+    <!-- <meta name="win_flag" content="above" > -->
+    <meta name="win_scrollbar" content="AlwaysOff" >
+    <meta name="win_fullscreen" content="fullscreen" >
+    <link rel="stylesheet" href="style.css" >
+    <script type="text/javascript" src="../Cubway/babel.js"></script>
+    <script type="text/javascript" src="../Cubway/browser-polyfill.js"></script>
+    <script type="text/javascript">
+    /* temporary solution for ES6 */
+    var fs = Modules.load('FileSystem');
+    var code, tag;
+    ['../simple.js/simple.js', 'launcher.js'].forEach(function(script){
+	code = Babel.transform(fs.read(script), { presets: ['es2015'] }).code;
+	tag = document.createElement('script');
+	tag.type = 'text/javascript';
+	tag.appendChild(document.createTextNode(code));
+	document.head.appendChild(tag);
+    });
+    </script>
+  </head>
+  <body>
+    <div id="tile_container">
+      <div class="tile_group" id="categories_group"></div>
+      <div class="tile_group" id="desktop_group"></div>
+    </div>
+  </body>
+</html>
