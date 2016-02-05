@@ -3,6 +3,7 @@
 
 const ICON_SIZE = 64;
 const APPLICATIONS = '/usr/share/applications';
+const CATEGORIES_ICON_THEME = 'gnome';
 const CATEGORIES = {
     'Accessibility': {
 	icon: 'applications-accessories'
@@ -182,15 +183,17 @@ function handle_category_click(){
     hide(tile_container);
     show(entry_lists[category]);
     current_category = category;
-    button.textContent = '<';
 }
 
 
 function handle_button_click(){
-    this.textContent = '';
-    hide(entry_lists[current_category]);
-    show(tile_container);
-    current_category = '';
+    if(current_category){
+	hide(entry_lists[current_category]);
+	show(tile_container);
+	current_category = '';
+    }else{
+	GUI.visible = false;
+    }
 }
 
 
