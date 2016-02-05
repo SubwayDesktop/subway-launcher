@@ -3,7 +3,6 @@
 
 const ICON_SIZE = 64;
 const APPLICATIONS = '/usr/share/applications';
-const CATEGORIES_ICON_THEME = 'gnome';
 const CATEGORIES = {
     'Accessibility': {
 	icon: 'applications-accessories'
