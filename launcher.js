@@ -197,8 +197,10 @@ function handle_button_click(){
 
 
 function handle_entry_click(){
-    if(this.dataset.exec)
+    if(this.dataset.exec){
 	process.execDetached(this.dataset.exec.replace(/ *%./g, ''));
+	GUI.visible = false;
+    }
 }
 
 
