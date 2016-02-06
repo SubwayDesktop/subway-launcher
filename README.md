@@ -8,6 +8,11 @@ There's no installation scripts now. It is required to create directories manual
 If you are just debugging, it is recommended to see the directory structure showed by the code below and test it without installation.
 Because we haven't designed the directory structure standard for our WebApps, in order not to break the FHS, it is recommended to install it to `/opt`
 
+### Dependencies
+
+(Cubway)
+`qt5` `libqtxdg`
+
 ### Install Cubway
 ```
 $ git clone https://github.com/Icenowy/Cubway
