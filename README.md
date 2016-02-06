@@ -28,7 +28,7 @@ $ make
 ```
 $ git clone https://github.com/SubwayDesktop/subway-launcher
 $ cd subway-launcher
-# make /opt/Subway/launcher
+# mkdir /opt/Subway/launcher
 # cp *.html *.js *.css /opt/Subway/launcher
 ```
 
