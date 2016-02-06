@@ -229,7 +229,11 @@ function handle_button_click(){
 
 function handle_entry_click(){
     if(this.dataset.exec){
-	process.execDetached(this.dataset.exec.replace(/ *%./g, ''));
+	process.execDetached(
+	    this.dataset.exec.replace(/ *%./g, ''),
+	    [],
+	    process.getEnv('HOME')
+	);
 	GUI.visible = false;
 	handle_button_click();
     }
