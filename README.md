@@ -2,9 +2,9 @@
 
 ## Toggle Visible
 
-'''
+```
 dbus-send --session --dest=org.subway.launcher --type=method_call /view org.subway.cubway.toggleVisible
-'''
+```
 
 ## Development Plan
 
