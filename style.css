@@ -57,10 +57,6 @@ body {
     margin-right: 0.5em;
     -webkit-flex-shrink: 0;
     background: linear-gradient(to bottom, #6348b4 0%,#7452c6 100%);
-}
-
-
-.category_tile {
     display: -webkit-flex;
     position: relative;
     -webkit-justify-content: center;
@@ -68,7 +64,7 @@ body {
 }
 
 
-.category_label {
+.tile_label {
     position: absolute;
     right: 0.2em;
     bottom: 0.2em;
@@ -99,7 +95,7 @@ body {
 }
 
 
-.category_icon, .entry_icon {
+.tile_icon, .entry_icon {
     width: 4em;
     height: 4em;
     -webkit-flex-shrink: 0;

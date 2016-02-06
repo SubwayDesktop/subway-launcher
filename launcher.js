@@ -48,6 +48,7 @@ var xdg = Modules.load('Xdg');
 
 
 var apps = [];
+var desktop_apps = [];
 var categories = {};
 var entry_lists = {};
 var current_category = '';
@@ -57,6 +58,7 @@ var tile_container, categories_group, desktop_group, button;
 
 
 function gen_app_list(dir){
+    var applications = [];
     var files = fs.list(dir);
     for(let file of files){
 	let path = dir + '/' + file;
@@ -65,9 +67,10 @@ function gen_app_list(dir){
 	}else if(file.match(/\.desktop$/)){
 	    let data = xdg.loadDesktopFile(path);
 	    if(!data.no_display && data.type == 'application')
-		apps.push(data);
+		applications.push(data);
 	}
     }
+    return applications;
 }
 
 
@@ -149,16 +152,16 @@ function gen_categories_list(){
 	if(name != 'Others')
 	    name = CATEGORIES[category].display_name || category;
 	let category_icon = create('img', {
-	    className: 'category_icon'
+	    classList: ['tile_icon', 'category_icon']
 	});
 	let icon_name = 'preferences-other';
 	if(category != 'Others')
 	    icon_name = CATEGORIES[category].icon;
 	let icon = xdg.getIcon(icon_name);
 	if(icon)
-	    icon.assignToHTMLImageElement(category_icon)
+	    icon.assignToHTMLImageElement(category_icon);
 	let category_label = create('div', {
-	    className: 'category_label',
+	    classList: ['tile_label', 'category_label'],
 	    textContent: name
 	});
 	let category_tile = create('div', {
@@ -173,6 +176,34 @@ function gen_categories_list(){
 	});
 	category_tile.addEventListener('click', handle_category_click);
 	categories_group.appendChild(category_tile);
+    }
+}
+
+
+function gen_desktop_tiles(){
+    for(let app of desktop_apps){
+	let desktop_app_icon = create('img', {
+	    classList: ['tile_icon', 'desktop_app_icon']
+	});
+	if(app.icon)
+	    app.icon.assignToHTMLImageElement(desktop_app_icon);
+	let desktop_app_label = create('div', {
+	    classList: ['tile_label', 'desktop_app_label'],
+	    textContent: app.name
+	});
+	let desktop_app_tile = create('div', {
+	    classList: ['tile', 'desktop_app_tile'],
+	    dataset: {
+		exec: app.exec
+	    },
+	    children: [
+		desktop_app_icon,
+		desktop_app_label
+	    ]
+	});
+	// Use the same event handler function as entries
+	desktop_app_tile.addEventListener('click', handle_entry_click);
+	desktop_group.appendChild(desktop_app_tile);
     }
 }
 
@@ -213,10 +244,12 @@ function init(){
 	button: '#button'
     });
     xdg.iconSize = ICON_SIZE;
-    gen_app_list(APPLICATIONS);
+    apps = gen_app_list(APPLICATIONS);
+    desktop_apps = gen_app_list(xdg.userDirs.desktop);
     gen_categories();
     gen_entry_lists();
     gen_categories_list();
+    gen_desktop_tiles();
     button.addEventListener('click', handle_button_click);
 }
 
