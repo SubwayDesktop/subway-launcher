@@ -24,8 +24,8 @@ $ cmake .
 $ make
 $ cd ../..
 # mkdir -p /opt/Subway/Cubway/Modules/Xdg
-# cp -p cubway /opt/Subway/Cubway/
-# cp -p Modules/Xdg/lib* /opt/Subway/Cubway/Modules/Xdg/
+# cp cubway /opt/Subway/Cubway/
+# cp Modules/Xdg/lib* /opt/Subway/Cubway/Modules/Xdg/
 ```
 ### Install Babel
 ```
