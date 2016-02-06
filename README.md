@@ -24,6 +24,12 @@ $ make
 # tar -vxaf Babel.tar.gz
 # rm Babel.tar.gz
 ```
+### Install Simple.js
+```
+$ git clone https://github.com/SubwayDesktop/simple.js
+# mkdir /opt/Subway/simple.js
+# cp simple.js/simple.js /opt/Subway/simple.js
+```
 ### Install Subway Launcher
 ```
 $ git clone https://github.com/SubwayDesktop/subway-launcher
