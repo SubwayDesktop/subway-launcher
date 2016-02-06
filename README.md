@@ -14,8 +14,13 @@ $ git clone https://github.com/Icenowy/Cubway
 $ cd Cubway
 $ cmake .
 $ make
-# mkdir -p /opt/Subway/Cubway
-# cp -rp cubway Modules /opt/Subway/Cubway/
+$ cd Modules/Xdg
+$ cmake.
+$ make
+$ cd ../..
+# mkdir -p /opt/Subway/Cubway/Modules/Xdg
+# cp -p cubway /opt/Subway/Cubway/
+# cp -p Modules/Xdg/lib* /opt/Subway/Cubway/Modules/Xdg/
 ```
 ### Install Babel
 ```
