@@ -15,7 +15,7 @@ $ cd Cubway
 $ cmake .
 $ make
 $ cd Modules/Xdg
-$ cmake.
+$ cmake .
 $ make
 $ cd ../..
 # mkdir -p /opt/Subway/Cubway/Modules/Xdg
