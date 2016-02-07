@@ -57,6 +57,36 @@ var current_category = '';
 var tile_container, categories_group, desktop_group, button;
 
 
+function get_icon_background(icon){
+    let data = icon.toImageData().data;
+    let points = [];
+    for(let i=0; i<data.length;  i+=4)
+	points.push([data[i], data[i+1], data[i+2]]);
+    let km = new kMeans({K: 3});
+    let colors = km.cluster(points);
+    let color = '#';
+    let gradient_color = '#';
+    for(let i=0; i<2; i++)
+	if(colors[0][0] == 0 && colors[0][1] == 0 && colors[0][2] == 0)
+	    colors.shift();
+    for(let i=0; i<3; i++){
+	let value = colors[0][i];
+	let new_value = value;
+	if(new_value < 240)
+	    new_value += 15;
+	else
+	    new_value -= 15;
+	let str = value.toString(16);
+	if(str.length < 2) str = '0' + str;
+	color += str;
+	str = new_value.toString(16);
+	if(str.length < 2) str = '0' + str;
+	gradient_color += str;
+    }
+    return printf('linear-gradient(to bottom, %1 0%,%2 100%)', color, gradient_color);
+}
+
+
 function gen_app_list(dir){
     var applications = [];
     var files = fs.list(dir);
@@ -158,14 +188,20 @@ function gen_categories_list(){
 	if(category != 'Others')
 	    icon_name = CATEGORIES[category].icon;
 	let icon = xdg.getIcon(icon_name);
-	if(icon)
+	let icon_background = '';
+	if(icon){
+	    icon_background = get_icon_background(icon);
 	    icon.assignToHTMLImageElement(category_icon);
+	}
 	let category_label = create('div', {
 	    classList: ['tile_label', 'category_label'],
 	    textContent: name
 	});
 	let category_tile = create('div', {
 	    classList: ['tile', 'category_tile'],
+	    style: {
+		background: icon_background
+	    },
 	    dataset: {
 		category: category
 	    },
@@ -185,14 +221,20 @@ function gen_desktop_tiles(){
 	let desktop_app_icon = create('img', {
 	    classList: ['tile_icon', 'desktop_app_icon']
 	});
-	if(app.icon)
+	let icon_background = '';
+	if(app.icon){
+	    icon_background = get_icon_background(app.icon);
 	    app.icon.assignToHTMLImageElement(desktop_app_icon);
+	}
 	let desktop_app_label = create('div', {
 	    classList: ['tile_label', 'desktop_app_label'],
 	    textContent: app.name
 	});
 	let desktop_app_tile = create('div', {
 	    classList: ['tile', 'desktop_app_tile'],
+	    style: {
+		background: icon_background
+	    },
 	    dataset: {
 		exec: app.exec
 	    },
