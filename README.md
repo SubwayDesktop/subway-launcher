@@ -40,7 +40,7 @@ $ git clone https://github.com/SubwayDesktop/simple.js
 # mkdir /opt/Subway/simple.js
 # cp simple.js/simple.js /opt/Subway/simple.js/
 ```
-### Install kMean.js
+### Install kMeans.js
 ```
 $ git clone https://github.com/emilbayes/kMeans.js
 # mkdir /opt/Subway/kMeans.js
