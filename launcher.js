@@ -57,6 +57,7 @@ var current_category = '';
 var tile_container, categories_group, desktop_group, button;
 
 
+/*
 function get_icon_background(icon){
     let data = icon.toImageData().data;
     let points = [];
@@ -85,6 +86,7 @@ function get_icon_background(icon){
     }
     return printf('linear-gradient(to bottom, %1 0%,%2 100%)', color, gradient_color);
 }
+*/
 
 
 function gen_app_list(dir){
@@ -116,11 +118,11 @@ function gen_categories(){
 }
 
 
-function gen_entry_list(arr){
+function gen_entry_list(iterable){
     var entry_container = create('div', {
 	className: 'entry_container'
     });
-    for(let app of arr){
+    for(let app of iterable){
 	let icon = create('img', {
 	    className: 'entry_icon'
 	});
@@ -155,21 +157,21 @@ function gen_entry_list(arr){
 function gen_entry_lists(){
     var instance, icon, text, exec;
     var classified = new Set();
-    var leftover_categories = [];
-    var leftover_apps = [];
+    var leftover_categories = new Set();
+    var leftover_apps = new Set();
     for(let I of Object.keys(categories)){
 	if(Object.keys(CATEGORIES).indexOf(I) != -1){
 	    for(let app of categories[I])
 		classified.add(app);
 	    entry_lists[I] = gen_entry_list(categories[I]);
 	}else{
-	    leftover_categories.push(I);
+	    leftover_categories.add(I);
 	}
     }
     for(let I of leftover_categories)
 	for(let app of categories[I])
 	    if(!classified.has(app))
-		leftover_apps.push(app);
+		leftover_apps.add(app);
     entry_lists['Others'] = gen_entry_list(leftover_apps);
     for(let I of Object.keys(entry_lists))
 	document.body.appendChild(entry_lists[I]);
@@ -190,7 +192,7 @@ function gen_categories_list(){
 	let icon = xdg.getIcon(icon_name);
 	let icon_background = '';
 	if(icon){
-	    icon_background = get_icon_background(icon);
+	    // icon_background = get_icon_background(icon);
 	    icon.assignToHTMLImageElement(category_icon);
 	}
 	let category_label = create('div', {
@@ -223,7 +225,7 @@ function gen_desktop_tiles(){
 	});
 	let icon_background = '';
 	if(app.icon){
-	    icon_background = get_icon_background(app.icon);
+	    // icon_background = get_icon_background(app.icon);
 	    app.icon.assignToHTMLImageElement(desktop_app_icon);
 	}
 	let desktop_app_label = create('div', {

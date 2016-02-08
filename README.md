@@ -40,12 +40,6 @@ $ git clone https://github.com/SubwayDesktop/simple.js
 # mkdir /opt/Subway/simple.js
 # cp simple.js/simple.js /opt/Subway/simple.js/
 ```
-### Install kMeans.js
-```
-$ git clone https://github.com/emilbayes/kMeans.js
-# mkdir /opt/Subway/kMeans.js
-# cp kMeans.js/kMeans.js /opt/Subway/kMeans.js/
-```
 ### Install Subway Launcher
 ```
 $ git clone https://github.com/SubwayDesktop/subway-launcher
