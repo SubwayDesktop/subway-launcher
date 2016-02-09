@@ -10,6 +10,7 @@ body {
     color: white;
     background-color: #180053;
     font-family: sans-serif;
+    font-size: 14px;
     display: -webkit-flex;
     -webkit-flex-direction: row;
     -webkit-justify-content: center;
@@ -17,30 +18,38 @@ body {
 }
 
 
-#button {
+#go_back_button {
     position: absolute;
-    left: 2vw;
-    top: 2vh;
-    font-size: 3em;
+    left: 10vw;
+    top: 5vh;
+    font-size: 4em;
+}
+
+
+#toggle_mode_button {
+    position: absolute;
+    right: 10vw;
+    top: 5vh;
+    font-size: 4em;
 }
 
 
 #tile_container, .entry_container {
-    width: 90vw;
-    height: 80vh;
+    width: 80vw;
+    height: 70vh;
     display: -webkit-flex;
 }
 
 
 #tile_container {
     -webkit-flex-direction: row;
-    -webkit-justify-content: space-around;
+    -webkit-justify-content: flex-start;
     -webkit-align-items: center;
 }
 
 
 .tile_group {
-    height: 80vh;
+    height: 70vh;
     display: -webkit-flex;
     -webkit-flex-direction: column;
     -webkit-flex-wrap: wrap;
@@ -53,8 +62,8 @@ body {
 .tile {
     width: 12em;
     height: 12em;
-    margin-bottom: 0.5em;
-    margin-right: 0.5em;
+    margin-bottom: 0.8em;
+    margin-right: 0.8em;
     -webkit-flex-shrink: 0;
     background: linear-gradient(to bottom, #6348b4 0%,#7452c6 100%);
     display: -webkit-flex;
@@ -66,8 +75,9 @@ body {
 
 .tile_label {
     position: absolute;
-    right: 0.2em;
-    bottom: 0.2em;
+    left: 1.5em;
+    bottom: 0.6em;
+    overflow: hidden;
 }
 
 
@@ -81,16 +91,26 @@ body {
 
 
 .entry_tile {
-    width: 16em;
-    height: 5em;
-    display: -webkit-flex;
-    -webkit-flex-direction: row;
-    -webkit-justify-content: space-around;
-    -webkit-align-items: center;
+    box-sizing: border-box;
+    width: 19.5em;
+    height: 5.6em;
+    padding: 0.8em;
+    margin-right: 1.2em;
+    margin-bottom: 0.4em;
 }
 
 
-#button:hover, .entry_tile:hover {
+.entry_content_wrapper {
+    width: 100%;
+    height: 100%;
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+    -webkit-justify-content: flex-start;
+    -webkit-align-items: flex-start;
+}
+
+
+#go_back_button:hover, .entry_tile:hover {
     background-color: #2b0680;
 }
 
@@ -102,17 +122,13 @@ body {
 }
 
 
-.entry_separator {
-    -webkit-flex-basis: 0.5em;
-}
-
-
-#button, .entry_label {
+#go_back_button, .entry_label {
     cursor: default;
 }
 
 
 .entry_label {
     font-size: 1.2em;
+    margin-left: 0.8em;
     -webkit-flex-basis: 10em;
 }

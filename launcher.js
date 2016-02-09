@@ -2,6 +2,9 @@
 
 
 const ICON_SIZE = 64;
+const FONT_SIZE_DATUM = 10;
+const FONT_SIZE_LOWER_LIMIT = FONT_SIZE_DATUM*0.50;
+const FONT_SIZE_UPPER_LIMIT = FONT_SIZE_DATUM*1.85;
 const APPLICATIONS = '/usr/share/applications';
 const CATEGORIES = {
     'Accessibility': {
@@ -52,9 +55,11 @@ var desktop_apps = [];
 var categories = {};
 var entry_lists = {};
 var current_category = '';
+var font_size = FONT_SIZE_DATUM;
+var wheel_mode = 'scroll';
 
 
-var tile_container, categories_group, desktop_group, button;
+var tile_container, categories_group, desktop_group, go_back_button;
 
 
 /*
@@ -128,12 +133,16 @@ function gen_entry_list(iterable){
 	});
 	if(app.icon)
 	    app.icon.assignToHTMLImageElement(icon);
-	let separator = create('span', {
-	    className: 'entry_separator'
-	});
 	let label = create('span', {
 	    className: 'entry_label',
 	    textContent: app.name
+	});
+	let wrapper = create('div', {
+	    className: 'entry_content_wrapper',
+	    children: [
+		icon,
+		label
+	    ]
 	});
 	let entry = create('div', {
 	    className: 'entry_tile',
@@ -141,9 +150,7 @@ function gen_entry_list(iterable){
 		exec: app.exec
 	    },
 	    children: [
-		icon,
-		separator,
-		label
+		wrapper
 	    ]
 	});
 	entry.addEventListener('click', handle_entry_click);
@@ -260,7 +267,7 @@ function handle_category_click(){
 }
 
 
-function handle_button_click(){
+function handle_go_back_button_click(){
     if(current_category){
 	hide(entry_lists[current_category]);
 	show(tile_container);
@@ -279,8 +286,14 @@ function handle_entry_click(){
 	    process.getEnv('HOME')
 	);
 	GUI.visible = false;
-	handle_button_click();
+	handle_go_back_button_click();
     }
+}
+
+
+function handle_mousewheel_event(ev){
+    /* intervene manually */
+    window.scrollBy(-ev.wheelDelta);
 }
 
 
@@ -289,7 +302,8 @@ function init(){
 	tile_container: '#tile_container',
 	categories_group: '#categories_group',
 	desktop_group: '#desktop_group',
-	button: '#button'
+	go_back_button: '#go_back_button',
+	toggle_mode_button: '#toggle_mode_button'
     });
     xdg.iconSize = ICON_SIZE;
     apps = gen_app_list(APPLICATIONS);
@@ -298,7 +312,8 @@ function init(){
     gen_entry_lists();
     gen_categories_list();
     gen_desktop_tiles();
-    button.addEventListener('click', handle_button_click);
+    go_back_button.addEventListener('click', handle_go_back_button_click);
+    window.addEventListener('mousewheel', handle_mousewheel_event);
 }
 
 
