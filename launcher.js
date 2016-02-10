@@ -2,9 +2,6 @@
 
 
 const ICON_SIZE = 64;
-const FONT_SIZE_DATUM = 10;
-const FONT_SIZE_LOWER_LIMIT = FONT_SIZE_DATUM*0.50;
-const FONT_SIZE_UPPER_LIMIT = FONT_SIZE_DATUM*1.85;
 const APPLICATIONS = '/usr/share/applications';
 const CATEGORIES = {
     'Accessibility': {
@@ -55,7 +52,6 @@ var desktop_apps = [];
 var categories = {};
 var entry_lists = {};
 var current_category = '';
-var font_size = FONT_SIZE_DATUM;
 var wheel_mode = 'scroll';
 
 
@@ -314,6 +310,8 @@ function init(){
     gen_desktop_tiles();
     go_back_button.addEventListener('click', handle_go_back_button_click);
     window.addEventListener('mousewheel', handle_mousewheel_event);
+    document.body.style.fontSize = 0.35 * (
+	screen.height/42 + screen.height/38.4) + 'px';
 }
 
 

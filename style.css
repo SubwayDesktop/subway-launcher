@@ -10,7 +10,7 @@ body {
     color: white;
     background-color: #180053;
     font-family: sans-serif;
-    font-size: 14px;
+    font-size: 10px;
     display: -webkit-flex;
     -webkit-flex-direction: column;
     -webkit-justify-content: center;
@@ -61,7 +61,8 @@ body {
 .tile {
     width: 12em;
     height: 12em;
-    margin-bottom: 0.8em;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
     margin-right: 0.8em;
     -webkit-flex-shrink: 0;
     background: linear-gradient(to bottom, #6348b4 0%,#7452c6 100%);
@@ -94,8 +95,9 @@ body {
     width: 19.5em;
     height: 5.6em;
     padding: 0.8em;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
     margin-right: 1.2em;
-    margin-bottom: 0.4em;
 }
 
 
