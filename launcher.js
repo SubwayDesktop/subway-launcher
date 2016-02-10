@@ -176,8 +176,11 @@ function gen_entry_lists(){
 	    if(!classified.has(app))
 		leftover_apps.add(app);
     entry_lists['Others'] = gen_entry_list(leftover_apps);
-    for(let I of Object.keys(entry_lists))
+    for(let I of Object.keys(entry_lists)){
+	entry_lists[I].addEventListener('webkitAnimationEnd',
+					handle_animation_end);
 	document.body.appendChild(entry_lists[I]);
+    }
 }
 
 
@@ -259,6 +262,7 @@ function handle_category_click(){
     var category = this.dataset.category;
     hide(tile_container);
     show(entry_lists[category]);
+    entry_lists[category].style.webkitAnimationPlayState = 'running';
     current_category = category;
 }
 
@@ -267,6 +271,7 @@ function handle_go_back_button_click(){
     if(current_category){
 	hide(entry_lists[current_category]);
 	show(tile_container);
+	tile_container.style.webkitAnimationPlayState = 'running';
 	current_category = '';
     }else{
 	GUI.visible = false;
@@ -293,6 +298,11 @@ function handle_mousewheel_event(ev){
 }
 
 
+function handle_animation_end(){
+    this.style.webkitAnimationPlayState = 'paused';
+}
+
+
 function init(){
     assignGlobalObjects({
 	tile_container: '#tile_container',
@@ -310,6 +320,8 @@ function init(){
     gen_desktop_tiles();
     go_back_button.addEventListener('click', handle_go_back_button_click);
     window.addEventListener('mousewheel', handle_mousewheel_event);
+    tile_container.addEventListener('webkitAnimationEnd',
+				    handle_animation_end);
     document.body.style.fontSize = 0.35 * (
 	screen.height/42 + screen.height/38.4) + 'px';
 }

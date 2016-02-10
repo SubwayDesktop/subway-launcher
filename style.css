@@ -37,6 +37,9 @@ body {
     margin-left: 10vw;
     height: 70vh;
     display: -webkit-flex;
+    -webkit-animation: fadeIn ease-out 1;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-duration: 0.25s;
 }
 
 
@@ -148,3 +151,6 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background-color: rgba(255, 255, 255, 0.8);
 }
+
+
+@-webkit-keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
