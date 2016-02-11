@@ -303,6 +303,18 @@ function handle_animation_end(){
 }
 
 
+function load_user_style(){
+    var file = xdg.userDirs.config + '/subway/launcher/user_style.css';
+    if(fs.exists(file) && !fs.isDir(file)){
+	let tag = create('link', {
+	    rel: 'stylesheet',
+	    href: file
+	})
+	document.head.appendChild(tag);
+    }
+}
+
+
 function init(){
     assignGlobalObjects({
 	tile_container: '#tile_container',
@@ -324,6 +336,7 @@ function init(){
 				    handle_animation_end);
     document.body.style.fontSize = 0.35 * (
 	screen.height/42 + screen.height/38.4) + 'px';
+    load_user_style();
 }
 
 
