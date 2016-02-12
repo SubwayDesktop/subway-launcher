@@ -18,10 +18,18 @@ body {
 
 
 #go_back_button {
-    position: absolute;
+    position: fixed;
     left: 10vw;
-    top: 5vh;
-    font-size: 4em;
+    top: 10vh;
+    width: 2.5em;
+    height: 2.5em;
+}
+
+
+#go_back_button img {
+    width: 100%;
+    height: 100%;
+    opacity: 0.96;
 }
 
 

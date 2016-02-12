@@ -45,7 +45,7 @@ $ git clone https://github.com/SubwayDesktop/simple.js
 $ git clone https://github.com/SubwayDesktop/subway-launcher
 $ cd subway-launcher
 # mkdir /opt/Subway/launcher
-# cp *.html *.js *.css /opt/Subway/launcher
+# cp * /opt/Subway/launcher
 ```
 
 ## Run it
