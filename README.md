@@ -27,10 +27,13 @@ $ make
 $ cd Modules/Xdg
 $ cmake .
 $ make
+$ cd ..
 $ Cubway/cubway subway-launcher/main.html   # run it !
 ```
 
-### Install Cubway
+### Install
+
+#### Install Cubway
 ```
 $ git clone https://github.com/Icenowy/Cubway
 $ cd Cubway
@@ -44,20 +47,20 @@ $ cd ../..
 # cp cubway /opt/Subway/Cubway/
 # cp Modules/Xdg/lib* /opt/Subway/Cubway/Modules/Xdg/
 ```
-### Install Babel
+#### Install Babel
 ```
 # cd /opt/Subway/Cubway/
 # wget https://cirno.xyz/~jqk/files/Babel.tar.gz
 # tar -vxaf Babel.tar.gz
 # rm Babel.tar.gz
 ```
-### Install Simple.js
+#### Install Simple.js
 ```
 $ git clone https://github.com/SubwayDesktop/simple.js
 # mkdir /opt/Subway/simple.js
 # cp simple.js/simple.js /opt/Subway/simple.js/
 ```
-### Install Subway Launcher
+#### Install Subway Launcher
 ```
 $ git clone https://github.com/SubwayDesktop/subway-launcher
 $ cd subway-launcher
@@ -65,7 +68,7 @@ $ cd subway-launcher
 # cp * /opt/Subway/launcher
 ```
 
-## Run it
+#### Run it
 
 ```
 $ /opt/Subway/Cubway/cubway /opt/Subway/launcher/main.html
