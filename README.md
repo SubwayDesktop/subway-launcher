@@ -45,7 +45,7 @@ $ make
 $ cd ../..
 # mkdir -p /opt/Subway/Cubway/Modules/Xdg
 # cp cubway /opt/Subway/Cubway/
-# cp Modules/Xdg/lib* /opt/Subway/Cubway/Modules/Xdg/
+# cp Modules/Xdg/libXdg.so /opt/Subway/Cubway/Modules/Xdg/
 ```
 #### Install Babel
 ```
