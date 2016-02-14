@@ -76,3 +76,7 @@ $ /opt/Subway/Cubway/cubway /opt/Subway/launcher/main.html
 ```
 dbus-send --session --dest=org.subwaydesktop.launcher --type=method_call /view org.subwaydesktop.cubway.toggleVisible
 ```
+
+## Desktop Icons
+
+Create symbolic link to `.desktop` files from `/usr/share/applications` in your desktop folder and the icons will be shown in the right side of the launcher.
