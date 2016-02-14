@@ -27,8 +27,8 @@ $ make
 $ cd Modules/Xdg
 $ cmake .
 $ make
-$ cd ..
-$ Cubway/cubway subway-launcher/main.html   # run it !
+$ cd ../../..
+$ Cubway/cubway subway-launcher/main.html   # run it!
 ```
 
 ### Install
@@ -82,4 +82,4 @@ dbus-send --session --dest=org.subwaydesktop.launcher --type=method_call /view o
 
 ## Desktop Icons
 
-Create symbolic link to `.desktop` files from `/usr/share/applications` in your desktop folder and the icons will be shown in the right side of the launcher.
+Create symbolic links to `.desktop` files from `/usr/share/applications` in your desktop folder and the icons will be shown in the right side of the launcher.
