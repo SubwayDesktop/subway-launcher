@@ -350,6 +350,8 @@ function handle_document_keyup(ev) {
     if(ev.keyCode == 27) {
 	/* Escape Key */
 	handle_go_back_button_click();
+    } else if(search_box != document.activeElement) {
+	search_box.focus();
     }
 }
 
@@ -363,7 +365,7 @@ function handle_search_box_keyup(ev) {
 	    if(list.firstElementChild)
 		handle_entry_click.call(list.firstElementChild);
 	}
-    } else {
+    } else if(ev.keyCode != 27) {
 	if(text)
 	    search_text(text);
 	else
@@ -421,7 +423,7 @@ function init() {
 	screen.height/42 + screen.height/38.4) + 'px';
     load_user_style();
 
-    search_box.focus();
+//    search_box.focus();
     search_box.addEventListener('blur', function(){ this.focus(); });
 }
 
