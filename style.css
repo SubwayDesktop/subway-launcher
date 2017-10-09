@@ -1,4 +1,4 @@
-* {
+*:not(#search_box) {
     -webkit-user-select: none;
 }
 
@@ -14,6 +14,23 @@ body {
     display: -webkit-flex;
     -webkit-flex-direction: column;
     -webkit-justify-content: center;
+}
+
+
+#search_box {
+    box-sizing: border-box;
+    position: fixed;
+    left: 20vw;
+    top: 87.5vh;
+    width: 60vw;
+    height: 7vh;
+    padding: 0.2em;
+    font-size: 3vh;
+    border: 0.2em solid hsla(0, 0%, 30%, 0.5);
+    color: white;
+    background-color: hsla(0, 0%, 100%, 0.01);
+    outline: 0;
+    text-align: center;
 }
 
 
@@ -42,6 +59,7 @@ body {
 
 
 #tile_container, .entry_container {
+    margin-top: 3vh;
     margin-left: 10vw;
     height: 70vh;
     display: -webkit-flex;

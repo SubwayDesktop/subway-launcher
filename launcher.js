@@ -1,8 +1,11 @@
 /* Subway Launcher */
 
+(() => console.log('Hello World'))();
+
 
 const ICON_SIZE = 64;
 const APPLICATIONS = '/usr/share/applications';
+const SEARCH_CATE = 'SearchResult';
 const CATEGORIES = {
     'Accessibility': {
 	icon: 'applications-accessories'
@@ -55,7 +58,7 @@ var current_category = '';
 var wheel_mode = 'scroll';
 
 
-var tile_container, categories_group, desktop_group, go_back_button;
+var tile_container, categories_group, desktop_group, go_back_button, search_box;
 
 
 /*
@@ -90,14 +93,14 @@ function get_icon_background(icon){
 */
 
 
-function gen_app_list(dir){
+function gen_app_list(dir) {
     var applications = [];
     var files = fs.list(dir);
-    for(let file of files){
+    for(let file of files) {
 	let path = dir + '/' + file;
 	if(fs.isDir(file)){
 	    gen_app_list(path);
-	}else if(file.match(/\.desktop$/)){
+	} else if(file.match(/\.desktop$/)) {
 	    let data = xdg.loadDesktopFile(path);
 	    if(!data.no_display && data.type == 'application')
 		applications.push(data);
@@ -107,9 +110,9 @@ function gen_app_list(dir){
 }
 
 
-function gen_categories(){
-    for(let app of apps){
-	for(let I of app.categories){
+function gen_categories() {
+    for(let app of apps) {
+	for(let I of app.categories) {
 	    if(categories[I])
 		categories[I].push(app);
 	    else
@@ -119,11 +122,11 @@ function gen_categories(){
 }
 
 
-function gen_entry_list(iterable){
+function gen_entry_list(iterable) {
     var entry_container = create('div', {
 	className: 'entry_container'
     });
-    for(let app of iterable){
+    for(let app of iterable) {
 	let icon = create('img', {
 	    className: 'entry_icon'
 	});
@@ -153,21 +156,23 @@ function gen_entry_list(iterable){
 	entry_container.appendChild(entry);		
     }
     hide(entry_container);
+    entry_container.addEventListener('webkitAnimationEnd',
+				     handle_animation_end);
     return entry_container;
 }
 
 
-function gen_entry_lists(){
+function gen_entry_lists() {
     var instance, icon, text, exec;
     var classified = new Set();
     var leftover_categories = new Set();
     var leftover_apps = new Set();
-    for(let I of Object.keys(categories)){
-	if(Object.keys(CATEGORIES).indexOf(I) != -1){
+    for(let I of Object.keys(categories)) {
+	if(Object.keys(CATEGORIES).indexOf(I) != -1) {
 	    for(let app of categories[I])
 		classified.add(app);
 	    entry_lists[I] = gen_entry_list(categories[I]);
-	}else{
+	} else {
 	    leftover_categories.add(I);
 	}
     }
@@ -176,19 +181,44 @@ function gen_entry_lists(){
 	    if(!classified.has(app))
 		leftover_apps.add(app);
     entry_lists['Others'] = gen_entry_list(leftover_apps);
-    for(let I of Object.keys(entry_lists)){
-	entry_lists[I].addEventListener('webkitAnimationEnd',
-					handle_animation_end);
+    entry_lists[SEARCH_CATE] = gen_entry_list((function* (){})());
+    for(let I of Object.keys(entry_lists)) {
 	document.body.appendChild(entry_lists[I]);
     }
 }
 
 
-function gen_categories_list(){
-    for(let category of Object.keys(entry_lists)){
+function search_text(text) {
+    function* get_filtered_apps(match) {
+	for(let I of apps) {
+	    if(match(I))
+		yield I;
+	}
+    }
+    function match(app) {
+	var keys = ['name', 'exec', 'comment'];
+	for(let I of keys) {
+	    if(app[I].toLowerCase().indexOf(text.toLowerCase()) != -1)
+		return true;
+	}
+	return false;
+    }
+    document.body.removeChild(entry_lists[SEARCH_CATE]);
+    entry_lists[SEARCH_CATE] = gen_entry_list(get_filtered_apps(match));
+    document.body.appendChild(entry_lists[SEARCH_CATE]);
+    switch_to_category(SEARCH_CATE);
+}
+
+
+function gen_categories_list() {
+    for(let category of Object.keys(entry_lists)) {
 	let name = category;
-	if(name != 'Others')
+	if(name == SEARCH_CATE) {
+	    continue;
+	}
+	if(name != 'Others') {
 	    name = CATEGORIES[category].display_name || category;
+	}
 	let category_icon = create('img', {
 	    classList: ['tile_icon', 'category_icon']
 	});
@@ -197,7 +227,7 @@ function gen_categories_list(){
 	    icon_name = CATEGORIES[category].icon;
 	let icon = xdg.getIcon(icon_name);
 	let icon_background = '';
-	if(icon){
+	if(icon) {
 	    // icon_background = get_icon_background(icon);
 	    icon.assignToHTMLImageElement(category_icon);
 	}
@@ -224,13 +254,13 @@ function gen_categories_list(){
 }
 
 
-function gen_desktop_tiles(){
-    for(let app of desktop_apps){
+function gen_desktop_tiles() {
+    for(let app of desktop_apps) {
 	let desktop_app_icon = create('img', {
 	    classList: ['tile_icon', 'desktop_app_icon']
 	});
 	let icon_background = '';
-	if(app.icon){
+	if(app.icon) {
 	    // icon_background = get_icon_background(app.icon);
 	    app.icon.assignToHTMLImageElement(desktop_app_icon);
 	}
@@ -258,69 +288,120 @@ function gen_desktop_tiles(){
 }
 
 
-function handle_category_click(){
-    var category = this.dataset.category;
-    hide(tile_container);
+function switch_to_category(category) {
+    if(current_category == '') {
+	hide(tile_container);
+    } else {
+	hide(entry_lists[current_category]);
+    }
     show(entry_lists[category]);
     entry_lists[category].style.webkitAnimationPlayState = 'running';
     current_category = category;
 }
 
 
-function handle_go_back_button_click(){
-    if(current_category){
+function switch_to_home() {
+    if(current_category != '') {
 	hide(entry_lists[current_category]);
-	show(tile_container);
-	tile_container.style.webkitAnimationPlayState = 'running';
-	current_category = '';
-    }else{
+    }
+    show(tile_container);
+    tile_container.style.webkitAnimationPlayState = 'running';
+    current_category = '';
+    search_box.value = '';
+}
+
+
+function show_search_result() {
+    switch_to_category(SEARCH_CATE);
+}
+
+
+function handle_category_click() {
+    switch_to_category(this.dataset.category);
+}
+
+
+function handle_go_back_button_click() {
+    if(current_category != ''){
+	switch_to_home();
+    } else {
 	GUI.visible = false;
     }
 }
 
 
-function handle_entry_click(){
-    if(this.dataset.exec){
+function handle_entry_click() {
+    if(this.dataset.exec) {
+	let exec = this.dataset.exec.replace(/ *%./g, '');
+	let args = exec.split(' ');
+	let cmd = args.shift();
 	process.execDetached(
-	    this.dataset.exec.replace(/ *%./g, ''),
-	    [],
+	    cmd,
+	    args,
 	    process.getEnv('HOME')
 	);
 	GUI.visible = false;
+	switch_to_home();
+    }
+}
+
+
+function handle_document_keyup(ev) {
+    if(ev.keyCode == 27) {
+	/* Escape Key */
 	handle_go_back_button_click();
     }
 }
 
 
-function handle_mousewheel_event(ev){
+function handle_search_box_keyup(ev) {
+    var text = this.value;
+    if(ev.keyCode == 13) {
+	/* Enter Key */
+	if(current_category == SEARCH_CATE) {
+	    let list = entry_lists[SEARCH_CATE];
+	    if(list.firstElementChild)
+		handle_entry_click.call(list.firstElementChild);
+	}
+    } else {
+	if(text)
+	    search_text(text);
+	else
+	    switch_to_home();
+    }
+}
+
+
+function handle_mousewheel_event(ev) {
     /* intervene manually */
     window.scrollBy(-ev.wheelDelta);
 }
 
 
-function handle_animation_end(){
+function handle_animation_end() {
     this.style.webkitAnimationPlayState = 'paused';
 }
 
 
-function load_user_style(){
+function load_user_style() {
     var file = xdg.userDirs.config + '/subway/launcher/user_style.css';
     if(fs.exists(file) && !fs.isDir(file)){
 	let tag = create('link', {
 	    rel: 'stylesheet',
 	    href: file
-	})
+	});
 	document.head.appendChild(tag);
     }
 }
 
 
-function init(){
+function init() {
     assignGlobalObjects({
 	tile_container: '#tile_container',
 	categories_group: '#categories_group',
 	desktop_group: '#desktop_group',
 	go_back_button: '#go_back_button',
+	search_box: '#search_box',
 	toggle_mode_button: '#toggle_mode_button'
     });
     xdg.iconSize = ICON_SIZE;
@@ -331,12 +412,17 @@ function init(){
     gen_categories_list();
     gen_desktop_tiles();
     go_back_button.addEventListener('click', handle_go_back_button_click);
+    search_box.addEventListener('keyup', handle_search_box_keyup);
+    document.addEventListener('keyup', handle_document_keyup);
     window.addEventListener('mousewheel', handle_mousewheel_event);
     tile_container.addEventListener('webkitAnimationEnd',
 				    handle_animation_end);
     document.body.style.fontSize = 0.35 * (
 	screen.height/42 + screen.height/38.4) + 'px';
     load_user_style();
+
+    search_box.focus();
+    search_box.addEventListener('blur', function(){ this.focus(); });
 }
 
 

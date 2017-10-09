@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="style.css" >
     <script type="text/javascript" src="../Cubway/babel.js"></script>
     <script type="text/javascript" src="../Cubway/browser-polyfill.js"></script>
+    <!-- for newer version of qt that supports es6 -->
+    <script type="text/javascript" src="../simple.js/simple.js"></script>
+    <script type="text/javascript" src="launcher.js"></script>
+    <!-- for older version -->
     <script type="text/javascript">
     /* temporary solution for ES6 */
     var fs = Modules.load('FileSystem');
@@ -31,5 +35,6 @@
       <div class="tile_group" id="categories_group"></div>
       <div class="tile_group" id="desktop_group"></div>
     </div>
+    <input id="search_box" type="text" placeholder="Search Contents" />
   </body>
 </html>
