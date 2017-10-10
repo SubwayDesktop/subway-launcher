@@ -225,6 +225,8 @@ function gen_categories_list() {
 	let icon_name = 'preferences-other';
 	if(category != 'Others')
 	    icon_name = CATEGORIES[category].icon;
+	else
+	    icon_name = 'applications-other';
 	let icon = xdg.getIcon(icon_name);
 	let icon_background = '';
 	if(icon) {
