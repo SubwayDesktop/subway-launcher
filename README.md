@@ -127,6 +127,8 @@ To change the style of the launcher, create `/home/jqk/.config/subway/launcher/u
 
 As for rules, you can refer to `style.css` and `main.html`. You can also right click on the launcher and select "Inspect" in the context menu to try some rules.
 
+After the custom style changed, is not necessary to restart the launcher. Just right click on it and select "Reload" in the context menu, then the style will be updated.
+
 ### Example
 
 #### Background Image
