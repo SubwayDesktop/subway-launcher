@@ -123,7 +123,7 @@ When you install new applications, sadly, the launcher will not update the app l
 
 ## Custom Style
 
-To change the style of the launcher, create `/home/jqk/.config/subway/launcher/user_style.css` and write your style into it.
+To change the style of the launcher, create `$HOME/.config/subway/launcher/user_style.css` and write your style into it.
 
 As for rules, you can refer to `style.css` and `main.html`. You can also right click on the launcher and select "Inspect" in the context menu to try some rules.
 
